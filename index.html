@@ -431,7 +431,28 @@ textarea::placeholder{color:var(--text-dim);}
 <script>
 function sel(btn,group){document.querySelectorAll('#'+group+' .opt-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
 function selScale(btn,group){document.querySelectorAll('#'+group+' .scale-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-function submit(){document.getElementById('thankyou').style.display='block';document.querySelector('.submit-btn').style.opacity='.4';document.querySelector('.submit-btn').style.pointerEvents='none';document.getElementById('thankyou').scrollIntoView({behavior:'smooth',block:'center'});}
+async function submit(){
+  const formData = {
+    q1: document.querySelector('#q1 .sel')?.textContent || 'No answer',
+    q2: document.querySelector('#q2 .sel')?.textContent || 'No answer',
+    q3: document.querySelector('#q3 .sel')?.textContent || 'No answer',
+    q4: document.querySelector('#q4 .sel')?.textContent || 'No answer',
+    q5: document.querySelector('#q5 .sel')?.textContent || 'No answer',
+    q6: document.querySelectorAll('textarea')[0]?.value || 'No answer',
+    q7: document.querySelectorAll('textarea')[1]?.value || 'No answer',
+  };
+
+  await fetch('https://formspree.io/f/mjgdwboo', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  });
+
+  document.getElementById('thankyou').style.display='block';
+  document.querySelector('.submit-btn').style.opacity='.4';
+  document.querySelector('.submit-btn').style.pointerEvents='none';
+  document.getElementById('thankyou').scrollIntoView({behavior:'smooth',block:'center'});
+}
 </script>
 </body>
 </html>
