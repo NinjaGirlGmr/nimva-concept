@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimva — Concept Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#0d0a1f;--surface:#16122e;--card:#1e1a40;--border:#2a2458;
+  --purple:#7c5fd4;--purple-light:#a990f0;--teal:#1d9e75;--blue:#378add;
+  --amber:#ba7517;--text:#e8e0ff;--text-mid:#a090d0;--text-dim:#6050a0;--radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;}
+.page{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+.hero{text-align:center;padding:60px 0 50px;}
+.hero-tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;font-family:'DM Mono',monospace;color:var(--text-mid);letter-spacing:.06em;margin-bottom:20px;}
+.hero h1{font-size:clamp(32px,5vw,52px);font-weight:600;letter-spacing:-.02em;margin-bottom:12px;line-height:1.15;}
+.hero h1 span{color:var(--purple-light);}
+.hero p{font-size:15px;color:var(--text-mid);max-width:520px;margin:0 auto 28px;line-height:1.7;}
+.hero-note{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 16px;font-size:12px;color:var(--text-mid);}
+.hero-note span{color:var(--teal);font-weight:500;}
+.section{margin-bottom:64px;}
+.section-tag{font-size:10px;font-family:'DM Mono',monospace;color:var(--purple-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.section-title{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px;}
+.section-sub{font-size:13px;color:var(--text-mid);margin-bottom:32px;max-width:560px;}
+.divider{height:1px;background:var(--border);margin:48px 0;}
+.screen-block{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;margin-bottom:48px;}
+.screen-block.flip{grid-template-columns:1fr auto;}
+.screen-block.flip .phone-wrap{order:2;}
+.screen-block.flip .annotations{order:1;}
+.phone-wrap{flex-shrink:0;}
+.phone{border-radius:32px;width:200px;background:#100c28;border:4px solid #241a50;overflow:hidden;display:flex;flex-direction:column;font-family:'DM Sans',sans-serif;}
+.p-sb{display:flex;justify-content:space-between;padding:8px 16px 2px;font-size:9px;color:#6050a0;}
+.p-tb{display:flex;justify-content:space-between;align-items:center;padding:3px 13px 6px;}
+.p-gs{font-size:9px;color:#6050a0;display:block;}
+.p-gn{font-size:12px;font-weight:600;color:#e8e0ff;display:block;}
+.p-av{width:26px;height:26px;border-radius:50%;background:#2d2060;color:#a090e0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;}
+.p-ws{display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:2px 10px 10px;height:72px;}
+.p-db{border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:4px;gap:2px;background:#1e1850;}
+.d0{width:18px;height:30px;opacity:.28;}.d1{width:22px;height:40px;opacity:.5;}.d2{width:26px;height:52px;opacity:.72;}.da{width:36px;height:64px;opacity:1;background:#6c50d0!important;}
+.p-dl{font-size:8px;color:#6050a0;}.da .p-dl{color:#d0c8ff;}
+.p-dn{font-size:10px;font-weight:600;color:#a090d0;}.da .p-dn{color:#fff;}
+.p-dot{width:4px;height:4px;border-radius:50%;}
+.dg{background:#1d9e75;}.do{background:#ba7517;}.dr{background:#378add;}
+.p-ez{margin:0 10px 8px;border-radius:14px;padding:10px 12px;background:#1a1648;display:flex;flex-direction:column;align-items:center;gap:7px;}
+.p-face{width:44px;height:44px;border-radius:50%;background:#2d2060;border:2px solid #5040b0;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.p-cm{font-size:9px;font-weight:500;color:#a090d0;}
+.p-bh{display:flex;justify-content:space-between;align-items:baseline;width:100%;}
+.p-bl{font-size:9px;color:#6050a0;}.p-bv{font-size:10px;font-weight:600;color:#ba7517;}
+.p-bb{height:7px;border-radius:7px;background:#100c28;overflow:hidden;width:100%;}
+.p-bf{height:100%;width:62%;border-radius:7px;background:linear-gradient(90deg,#1d9e75,#6c50d0,#ba7517);}
+.p-chips{display:flex;gap:4px;width:100%;}
+.p-ch{flex:1;border-radius:8px;padding:4px 2px;background:#100c28;display:flex;flex-direction:column;align-items:center;gap:1px;}
+.p-cv{font-size:10px;font-weight:600;color:#e0d8ff;}.p-ck{font-size:8px;color:#6050a0;}
+.p-sr{display:flex;justify-content:space-between;padding:0 12px 4px;}
+.p-st{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:#6050a0;}.p-sa{font-size:9px;color:#6c50d0;}
+.p-el{display:flex;flex-direction:column;gap:5px;padding:0 10px;}
+.p-ev{border-radius:9px;padding:7px 9px;display:flex;align-items:center;gap:6px;}
+.p-evp{background:#1a1648;}.p-evt{background:#0c2418;}.p-evb{background:#0c1c38;}
+.p-edot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.ep{background:#6c50d0;}.et{background:#1d9e75;}.eb{background:#378add;}
+.p-ebo{display:flex;flex-direction:column;gap:1px;flex:1;}
+.p-en{font-size:10px;font-weight:500;color:#e0d8ff;}.p-em{font-size:8px;color:#6050a0;}
+.p-tg{font-size:8px;padding:1px 5px;border-radius:20px;font-weight:500;}
+.tpd{background:#2d2060;color:#c0b0f0;}.ttd{background:#0f6e56;color:#9fe1cb;}.tbd{background:#185fa5;color:#b5d4f4;}
+.p-ab{margin:8px 10px 0;border:none;border-radius:10px;padding:8px;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;background:#6c50d0;color:#f0ecff;width:calc(100% - 20px);}
+.p-nb{display:flex;justify-content:space-around;padding:7px 12px 4px;margin-top:8px;border-top:0.5px solid #1a1648;}
+.p-ni{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:8px;color:#6050a0;}
+.p-ni.act{color:#6c50d0;}.p-ni i{font-size:14px;}
+.p-pp{font-size:7px;padding:1px 3px;border-radius:20px;background:#2d2060;color:#a090e0;}
+.annotations{display:flex;flex-direction:column;gap:14px;padding-top:8px;}
+.ann{display:flex;gap:12px;align-items:flex-start;}
+.ann-num{width:24px;height:24px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--purple-light);flex-shrink:0;font-family:'DM Mono',monospace;}
+.ann-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ann-desc{font-size:12px;color:var(--text-mid);line-height:1.6;}
+.ann-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;margin-top:4px;}
+.tag-purple{background:#2d2060;color:#c0b0f0;}.tag-teal{background:#0f6e56;color:#9fe1cb;}
+.tag-amber{background:#4a2c06;color:#f0b040;}.tag-blue{background:#0c3060;color:#90c0f0;}
+.screen-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--text-dim);margin-bottom:10px;letter-spacing:.04em;}
+.feedback-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;}
+.feedback-title{font-size:20px;font-weight:600;margin-bottom:6px;}
+.feedback-sub{font-size:13px;color:var(--text-mid);margin-bottom:28px;}
+.q-block{margin-bottom:24px;}
+.q-label{font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px;display:block;}
+.q-sub{font-size:11px;color:var(--text-dim);margin-bottom:8px;display:block;}
+.options-row{display:flex;flex-wrap:wrap;gap:8px;}
+.opt-btn{border:1.5px solid var(--border);background:var(--card);color:var(--text-mid);border-radius:10px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.opt-btn:hover{border-color:var(--purple);color:var(--text);}
+.opt-btn.sel{border-color:var(--purple);background:#2d2060;color:var(--purple-light);}
+.scale-row{display:flex;gap:6px;align-items:center;}
+.scale-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:var(--card);color:var(--text-mid);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.scale-btn:hover{border-color:var(--purple);}.scale-btn.sel{border-color:var(--purple);background:#2d2060;color:var(--purple-light);}
+.scale-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-top:6px;}
+textarea{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text);font-family:'DM Sans',sans-serif;resize:vertical;min-height:72px;outline:none;line-height:1.6;}
+textarea:focus{border-color:var(--purple);}
+textarea::placeholder{color:var(--text-dim);}
+.submit-btn{border:none;border-radius:12px;padding:12px 28px;font-size:13px;font-weight:500;cursor:pointer;background:var(--purple);color:#f0ecff;font-family:'DM Sans',sans-serif;transition:opacity .15s;}
+.submit-btn:hover{opacity:.85;}
+.anon-note{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);margin-bottom:20px;}
+.anon-note span{color:var(--teal);}
+.thankyou{display:none;background:#0c2418;border:1px solid #1d9e75;border-radius:12px;padding:16px 20px;font-size:13px;color:#9fe1cb;margin-top:14px;}
+@media(max-width:640px){
+  .screen-block{grid-template-columns:1fr;}
+  .screen-block.flip .phone-wrap{order:1;}
+  .screen-block.flip .annotations{order:2;}
+  .phone-wrap{display:flex;justify-content:center;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">CONCEPT PREVIEW · COMMUNITY FEEDBACK</div>
+    <h1>Meet <span>Nimva</span></h1>
+    <p>A scheduling app that manages your energy across the week — not just your time. Built for students who do a lot and want to do it without burning out.</p>
+    <div class="hero-note">📋 <span>Your feedback</span> directly shapes what gets built next. Nothing here is final.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-tag">The idea</div>
+    <div class="section-title">Scheduling apps manage time. Nimva manages energy.</div>
+    <div class="section-sub">Most apps tell you what to do and when. Nimva asks how draining each thing is, then builds your week so the heavy stuff is spread out — protecting you from hitting a wall mid-week.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Screen 1 -->
+  <div class="section">
+    <div class="section-tag">Screen 01</div>
+    <div class="section-title">Your week at a glance</div>
+    <div class="section-sub">The first thing you see every day — your energy level, today's events, and how the rest of the week is looking.</div>
+    <div class="screen-block">
+      <div class="phone-wrap">
+        <div class="screen-label">Home screen</div>
+        <div class="phone">
+          <div class="p-sb"><span>9:41</span><span>Wed</span></div>
+          <div class="p-tb"><div><span class="p-gs">Good morning,</span><span class="p-gn">Alex 👋</span></div><div class="p-av">A</div></div>
+          <div class="p-ws">
+            <div class="p-db d0"><span class="p-dot dg"></span></div>
+            <div class="p-db d1"><span class="p-dl">Mo</span><span class="p-dn">2</span><span class="p-dot dg"></span></div>
+            <div class="p-db d2"><span class="p-dl">Tu</span><span class="p-dn">3</span><span class="p-dot do"></span></div>
+            <div class="p-db da"><span class="p-dl">We</span><span class="p-dn">4</span><span class="p-dot do"></span></div>
+            <div class="p-db d2"><span class="p-dl">Th</span><span class="p-dn">5</span><span class="p-dot dr"></span></div>
+            <div class="p-db d1"><span class="p-dl">Fr</span><span class="p-dn">6</span><span class="p-dot dg"></span></div>
+            <div class="p-db d0"><span class="p-dot dg"></span></div>
+          </div>
+          <div class="p-ez">
+            <div class="p-face">😐</div>
+            <span class="p-cm">feeling okay</span>
+            <div class="p-bh"><span class="p-bl">Weekly energy</span><span class="p-bv">62%</span></div>
+            <div class="p-bb"><div class="p-bf"></div></div>
+            <div class="p-chips">
+              <div class="p-ch"><span class="p-cv">5</span><span class="p-ck">events left</span></div>
+              <div class="p-ch"><span class="p-cv">Th</span><span class="p-ck">heavy day</span></div>
+              <div class="p-ch"><span class="p-cv">2</span><span class="p-ck">flex slots</span></div>
+            </div>
+          </div>
+          <div class="p-sr"><span class="p-st">Wednesday</span><span class="p-sa">see all</span></div>
+          <div class="p-el">
+            <div class="p-ev p-evp"><div class="p-edot ep"></div><div class="p-ebo"><span class="p-en">Robotics club</span><span class="p-em">9:00 — 11:00 · Takes effort</span></div><span class="p-tg tpd">fixed</span></div>
+            <div class="p-ev p-evt"><div class="p-edot et"></div><div class="p-ebo"><span class="p-en">Lunch break</span><span class="p-em">12:00 — 1:00 · Alright</span></div><span class="p-tg ttd">flexible</span></div>
+            <div class="p-ev p-evb"><div class="p-edot eb"></div><div class="p-ebo"><span class="p-en">Gym session</span><span class="p-em">3:30 — 5:00 · Pretty draining</span></div><span class="p-tg tbd">flexible</span></div>
+          </div>
+          <button class="p-ab">+ Add event</button>
+          <div class="p-nb">
+            <div class="p-ni act"><i class="ti ti-home"></i><span>Home</span></div>
+            <div class="p-ni"><i class="ti ti-calendar"></i><span>Plan</span></div>
+            <div class="p-ni"><i class="ti ti-chart-bar"></i><span>Insights</span><span class="p-pp">PRO</span></div>
+            <div class="p-ni"><i class="ti ti-user"></i><span>Me</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="annotations">
+        <div class="ann"><div class="ann-num">1</div><div class="ann-body"><div class="ann-title">Personalized greeting</div><div class="ann-desc">Opens with your name and time of day — feels like the app knows you, not just your schedule.</div></div></div>
+        <div class="ann"><div class="ann-num">2</div><div class="ann-body"><div class="ann-title">Scaling week strip</div><div class="ann-desc">Today is front and center. Days fade and shrink as they move away, giving a natural depth. Colored dots show load — green is light, amber is moderate, blue is heavy.</div></div></div>
+        <div class="ann"><div class="ann-num">3</div><div class="ann-body"><div class="ann-title">Energy meter</div><div class="ann-desc">The character reflects your weekly energy state. The bar shows remaining capacity — not hours, but energy.</div><span class="ann-tag tag-purple">core feature</span></div></div>
+        <div class="ann"><div class="ann-num">4</div><div class="ann-body"><div class="ann-title">Summary chips</div><div class="ann-desc">Three quick facts: events remaining, heaviest upcoming day, and open flexible slots.</div></div></div>
+        <div class="ann"><div class="ann-num">5</div><div class="ann-body"><div class="ann-title">Color-coded events</div><div class="ann-desc">Purple = fixed (unmovable). Teal and blue = flexible (Nimva placed these). Each card shows time and energy label.</div><span class="ann-tag tag-teal">flexible</span> <span class="ann-tag tag-purple">fixed</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Screen 2 -->
+  <div class="section">
+    <div class="section-tag">Screen 02</div>
+    <div class="section-title">Adding an event</div>
+    <div class="section-sub">Tell Nimva whether an event is fixed or flexible — and how draining it actually feels for you personally.</div>
+    <div class="screen-block flip">
+      <div class="phone-wrap">
+        <div class="screen-label">Add event screen</div>
+        <div class="phone">
+          <div class="p-sb"><span>9:41</span><span>Wed</span></div>
+          <div class="p-tb"><div style="font-size:11px;color:#7c60d0;">← Back</div><div style="font-size:11px;font-weight:600;color:#e8e0ff;">Add event</div><div style="font-size:11px;color:#7c60d0;">Save</div></div>
+          <div style="padding:4px 12px 8px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-transform:uppercase;letter-spacing:.07em;">Event name</div><div style="background:#1e1850;border-radius:9px;padding:8px 10px;font-size:11px;color:#e0d8ff;">Robotics club</div></div>
+            <div style="display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-transform:uppercase;letter-spacing:.07em;">Event type</div>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;border-radius:9px;padding:8px;background:#2d2060;border:1.5px solid #7c60d0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:500;color:#c0b0f0;">🔒 Fixed</div>
+                <div style="flex:1;border-radius:9px;padding:8px;background:#181440;border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:500;color:#4a3a80;">↔ Flexible</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;"><div style="flex:1;background:#1e1850;border-radius:9px;padding:7px 9px;font-size:10px;color:#e0d8ff;">9:00 AM</div><div style="flex:1;background:#1e1850;border-radius:9px;padding:7px 9px;font-size:10px;color:#e0d8ff;">11:00 AM</div></div>
+            <div style="height:.5px;background:#1e1850;"></div>
+            <div style="font-size:8px;color:#6050a0;text-transform:uppercase;letter-spacing:.07em;">How does this feel?</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+              <div style="border-radius:9px;padding:8px 6px;background:#0c2820;border:1.5px solid #1d9e75;display:flex;align-items:center;gap:5px;font-size:9px;font-weight:500;color:#9fe1cb;">😌 Alright</div>
+              <div style="border-radius:9px;padding:8px 6px;background:#181440;border:1.5px solid transparent;display:flex;align-items:center;gap:5px;font-size:9px;color:#4a3a80;">😐 Manageable</div>
+              <div style="border-radius:9px;padding:8px 6px;background:#181440;border:1.5px solid transparent;display:flex;align-items:center;gap:5px;font-size:9px;color:#4a3a80;">😤 Takes effort</div>
+              <div style="border-radius:9px;padding:8px 6px;background:#181440;border:1.5px solid transparent;display:flex;align-items:center;gap:5px;font-size:9px;color:#4a3a80;">😮‍💨 Pretty draining</div>
+            </div>
+            <div style="height:6px;border-radius:6px;background:#181440;overflow:hidden;"><div style="height:100%;width:20%;background:#1d9e75;border-radius:6px;"></div></div>
+            <div style="background:#1e1850;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+              <div><div style="font-size:10px;font-weight:500;color:#c0b0f0;">Learn my patterns</div><div style="font-size:8px;color:#6050a0;">Nimva suggests over time</div></div>
+              <div style="width:28px;height:16px;border-radius:8px;background:#7c60d0;position:relative;"><div style="width:12px;height:12px;border-radius:50%;background:#e0d8ff;position:absolute;top:2px;right:2px;"></div></div>
+            </div>
+          </div>
+          <div style="margin:6px 10px 0;border:none;border-radius:10px;padding:9px;background:#6c50d0;color:#f0ecff;font-size:10px;font-weight:500;text-align:center;">✓ Add to week</div>
+          <div class="p-nb" style="margin-top:8px;">
+            <div class="p-ni"><i class="ti ti-home"></i><span>Home</span></div>
+            <div class="p-ni act"><i class="ti ti-calendar"></i><span>Plan</span></div>
+            <div class="p-ni"><i class="ti ti-chart-bar"></i><span>Insights</span><span class="p-pp">PRO</span></div>
+            <div class="p-ni"><i class="ti ti-user"></i><span>Me</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="annotations">
+        <div class="ann"><div class="ann-num">1</div><div class="ann-body"><div class="ann-title">Fixed vs Flexible toggle</div><div class="ann-desc">Fixed events are locked to a specific time. Flexible events get placed by Nimva around everything else to protect your energy.</div><span class="ann-tag tag-purple">fixed = locked</span> <span class="ann-tag tag-teal">flexible = Nimva places it</span></div></div>
+        <div class="ann"><div class="ann-num">2</div><div class="ann-body"><div class="ann-title">Energy labels</div><div class="ann-desc">Four human-language options instead of a number scale. Tap the one that best describes how this event usually leaves you feeling.</div><span class="ann-tag tag-amber">core to how Nimva works</span></div></div>
+        <div class="ann"><div class="ann-num">3</div><div class="ann-body"><div class="ann-title">Fine-tune slider</div><div class="ann-desc">If the label is close but not exact, nudge the slider. Completely optional — most people just pick a label and move on.</div></div></div>
+        <div class="ann"><div class="ann-num">4</div><div class="ann-body"><div class="ann-title">Learn my patterns toggle</div><div class="ann-desc">When on, Nimva tracks how this event type actually affects you and starts suggesting energy levels automatically over time.</div><span class="ann-tag tag-blue">optional feature</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Screen 3 -->
+  <div class="section">
+    <div class="section-tag">Screen 03</div>
+    <div class="section-title">Building your week</div>
+    <div class="section-sub">Tap one button and watch Nimva build your schedule — placing flexible events around your fixed ones to keep energy balanced across the week.</div>
+    <div class="screen-block">
+      <div class="phone-wrap">
+        <div class="screen-label">Week generation — complete</div>
+        <div class="phone">
+          <div class="p-sb"><span>9:41</span><span>Sun</span></div>
+          <div class="p-tb"><div><span class="p-gs">This week</span><span class="p-gn">Week ready 🎉</span></div><div class="p-av">A</div></div>
+          <div style="display:flex;gap:4px;padding:0 10px 8px;">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-align:center;">Mo</div><div style="border-radius:8px;background:#181440;padding:4px 3px;display:flex;flex-direction:column;gap:2px;min-height:100px;"><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Work</div><div style="border-radius:5px;padding:3px 4px;background:#6c50d0;font-size:7px;color:#e0d8ff;font-weight:500;">Gym</div></div></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-align:center;">Tu</div><div style="border-radius:8px;background:#181440;padding:4px 3px;display:flex;flex-direction:column;gap:2px;min-height:100px;"><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Work</div><div style="border-radius:5px;padding:3px 4px;background:#0f6e56;font-size:7px;color:#9fe1cb;font-weight:500;">Friends</div><div style="border-radius:5px;padding:3px 4px;background:#185fa5;font-size:7px;color:#b5d4f4;font-weight:500;">Grocery</div></div></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-align:center;">We</div><div style="border-radius:8px;background:#181440;padding:4px 3px;display:flex;flex-direction:column;gap:2px;min-height:100px;border:1px solid #4a2c06;"><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Work</div><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Robotics</div></div></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-align:center;">Th</div><div style="border-radius:8px;background:#181440;padding:4px 3px;display:flex;flex-direction:column;gap:2px;min-height:100px;"><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Work</div><div style="border-radius:5px;padding:3px 4px;background:#6c50d0;font-size:7px;color:#e0d8ff;font-weight:500;">Gym</div></div></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><div style="font-size:8px;color:#6050a0;text-align:center;">Fr</div><div style="border-radius:8px;background:#181440;padding:4px 3px;display:flex;flex-direction:column;gap:2px;min-height:100px;"><div style="border-radius:5px;padding:3px 4px;background:#2d2060;font-size:7px;color:#c0b0f0;font-weight:500;">Work</div><div style="border-radius:5px;padding:3px 4px;background:#6c50d0;font-size:7px;color:#e0d8ff;font-weight:500;">Gym</div><div style="border-radius:5px;padding:3px 4px;background:#6c50d0;font-size:7px;color:#e0d8ff;font-weight:500;">Study</div></div></div>
+          </div>
+          <div style="margin:0 10px 5px;background:#1e1208;border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:5px;font-size:9px;color:#ef9f27;border:0.5px solid #4a2c06;">⚠ Wednesday looks heavy — tap to adjust</div>
+          <div style="margin:0 10px 6px;background:#0c2418;border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:5px;font-size:9px;color:#5dcaa5;border:0.5px solid #0f6e56;">✓ Energy spread across 5 days</div>
+          <div style="padding:0 10px;display:flex;flex-direction:column;gap:4px;margin-bottom:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:9px;"><span style="color:#6050a0;">Energy balance</span><span style="color:#1d9e75;font-weight:600;">74% good</span></div>
+            <div style="height:6px;border-radius:6px;background:#181440;overflow:hidden;"><div style="height:100%;width:74%;background:linear-gradient(90deg,#1d9e75,#6c50d0);border-radius:6px;"></div></div>
+          </div>
+          <div style="display:flex;gap:6px;margin:0 10px 4px;">
+            <div style="flex:2;border-radius:9px;padding:9px;background:#1d9e75;color:#e1f5ee;font-size:9px;font-weight:500;text-align:center;">✓ Approve week</div>
+            <div style="flex:1;border-radius:9px;padding:9px;background:#1e1850;color:#a090d0;font-size:9px;font-weight:500;text-align:center;">↺ Redo</div>
+          </div>
+          <div class="p-nb" style="margin-top:6px;">
+            <div class="p-ni"><i class="ti ti-home"></i><span>Home</span></div>
+            <div class="p-ni act"><i class="ti ti-calendar"></i><span>Plan</span></div>
+            <div class="p-ni"><i class="ti ti-chart-bar"></i><span>Insights</span><span class="p-pp">PRO</span></div>
+            <div class="p-ni"><i class="ti ti-user"></i><span>Me</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="annotations">
+        <div class="ann"><div class="ann-num">1</div><div class="ann-body"><div class="ann-title">Day by day build animation</div><div class="ann-desc">Events drop into place one day at a time — left to right — while a progress bar fills below. You watch it happen in real time.</div><span class="ann-tag tag-purple">interactive</span></div></div>
+        <div class="ann"><div class="ann-num">2</div><div class="ann-body"><div class="ann-title">Wednesday warning</div><div class="ann-desc">Nimva flags heavy days with a calm amber note. Tap it to see available slots and move something with one tap.</div><span class="ann-tag tag-amber">gentle warning</span></div></div>
+        <div class="ann"><div class="ann-num">3</div><div class="ann-body"><div class="ann-title">Energy balance score</div><div class="ann-desc">Shows how well your energy is spread across the week. 74% means it's well distributed — solid but not perfect.</div></div></div>
+        <div class="ann"><div class="ann-num">4</div><div class="ann-body"><div class="ann-title">Approve or redo</div><div class="ann-desc">Accept the week as-is or regenerate entirely. Nimva suggests — you always decide.</div><span class="ann-tag tag-teal">you're in control</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Screen 4 -->
+  <div class="section">
+    <div class="section-tag">Screen 04</div>
+    <div class="section-title">End of week check-in</div>
+    <div class="section-sub">A short optional conversation at the end of the week. Nimva asks a few quick questions, learns from your answers, and quietly adjusts how it builds your next week.</div>
+    <div class="screen-block flip">
+      <div class="phone-wrap">
+        <div class="screen-label">Check-in — smart suggestions</div>
+        <div class="phone">
+          <div class="p-sb"><span>9:41</span><span>Sun</span></div>
+          <div class="p-tb"><div><span class="p-gs">Weekly check-in</span><span class="p-gn">A couple ideas</span></div><span style="font-size:9px;color:#3a2a70;">skip</span></div>
+          <div style="display:flex;gap:4px;justify-content:center;padding:0 0 10px;">
+            <div style="width:5px;height:5px;border-radius:50%;background:#1d9e75;"></div>
+            <div style="width:5px;height:5px;border-radius:50%;background:#1d9e75;"></div>
+            <div style="width:5px;height:5px;border-radius:50%;background:#1d9e75;"></div>
+            <div style="width:16px;height:5px;border-radius:3px;background:#6c50d0;"></div>
+            <div style="width:5px;height:5px;border-radius:50%;background:#1e1850;"></div>
+          </div>
+          <div style="padding:0 12px;display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0 10px;">
+              <div style="width:50px;height:50px;border-radius:50%;background:#2d2060;border:2px solid #5040b0;display:flex;align-items:center;justify-content:center;font-size:24px;">🙂</div>
+              <div style="background:#1e1850;border-radius:10px;border-bottom-left-radius:3px;padding:7px 10px;font-size:9px;color:#c0b0f0;line-height:1.6;text-align:center;">based on this week — a couple small changes</div>
+            </div>
+            <div style="background:#181440;border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:8px;color:#5040a0;text-transform:uppercase;letter-spacing:.06em;">Noticed</div>
+              <div style="font-size:10px;color:#e0d8ff;line-height:1.5;">Gym felt harder than expected — schedule it on lighter days?</div>
+              <div style="display:flex;gap:5px;">
+                <button style="flex:2;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:500;cursor:pointer;background:#1d9e75;color:#e1f5ee;">Sounds good</button>
+                <button style="flex:1;border:none;border-radius:7px;padding:7px;font-size:9px;cursor:pointer;background:#1e1850;color:#6050a0;">Ignore</button>
+              </div>
+            </div>
+            <div style="background:#181440;border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-size:8px;color:#5040a0;text-transform:uppercase;letter-spacing:.06em;">From your note</div>
+              <div style="font-size:10px;color:#e0d8ff;line-height:1.5;">Keep Wednesdays lighter going forward?</div>
+              <div style="display:flex;gap:5px;">
+                <button style="flex:2;border:none;border-radius:7px;padding:7px;font-size:9px;font-weight:500;cursor:pointer;background:#1d9e75;color:#e1f5ee;">Sounds good</button>
+                <button style="flex:1;border:none;border-radius:7px;padding:7px;font-size:9px;cursor:pointer;background:#1e1850;color:#6050a0;">Ignore</button>
+              </div>
+            </div>
+            <div style="font-size:9px;color:#3a2a70;text-align:center;padding:2px 0;">no changes needed</div>
+          </div>
+          <div class="p-nb" style="margin-top:8px;">
+            <div class="p-ni"><i class="ti ti-home"></i><span>Home</span></div>
+            <div class="p-ni act"><i class="ti ti-calendar"></i><span>Plan</span></div>
+            <div class="p-ni"><i class="ti ti-chart-bar"></i><span>Insights</span><span class="p-pp">PRO</span></div>
+            <div class="p-ni"><i class="ti ti-user"></i><span>Me</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="annotations">
+        <div class="ann"><div class="ann-num">1</div><div class="ann-body"><div class="ann-title">Progress dots</div><div class="ann-desc">Five steps total — completed ones turn teal. The whole check-in takes about 60 seconds.</div></div></div>
+        <div class="ann"><div class="ann-num">2</div><div class="ann-body"><div class="ann-title">Character speech bubble</div><div class="ann-desc">The character speaks to you directly. Feels like a quick chat, not a survey.</div></div></div>
+        <div class="ann"><div class="ann-num">3</div><div class="ann-body"><div class="ann-title">Smart suggestions</div><div class="ann-desc">Nimva surfaces one or two specific changes based on what it learned — from your ratings and your note. Tap accept or ignore. No settings menu.</div><span class="ann-tag tag-amber">learning engine</span></div></div>
+        <div class="ann"><div class="ann-num">4</div><div class="ann-body"><div class="ann-title">Always skippable</div><div class="ann-desc">Every step has a visible skip. The whole check-in is optional — Nimva notifies you but never forces it.</div><span class="ann-tag tag-blue">optional</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Feedback -->
+  <div class="section">
+    <div class="section-tag">Your feedback</div>
+    <div class="section-title">What do you think?</div>
+    <div class="section-sub">This is a concept — nothing is built yet. Your honest reaction helps decide what to build first.</div>
+    <div class="feedback-section">
+      <div class="feedback-title">Quick feedback form</div>
+      <div class="feedback-sub">Takes about 2 minutes.</div>
+      <div class="anon-note">🔒 <span>Completely anonymous</span> — no names, no tracking, no way to identify you.</div>
+
+      <div class="q-block">
+        <label class="q-label">1. Does the core idea make sense to you?</label>
+        <span class="q-sub">An app that manages your energy across the week, not just your time.</span>
+        <div class="options-row" id="q1">
+          <button class="opt-btn" onclick="sel(this,'q1')">Yes, immediately</button>
+          <button class="opt-btn" onclick="sel(this,'q1')">Kind of, needed a moment</button>
+          <button class="opt-btn" onclick="sel(this,'q1')">Not quite</button>
+          <button class="opt-btn" onclick="sel(this,'q1')">Not really</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">2. Is this something you'd actually use?</label>
+        <div class="options-row" id="q2">
+          <button class="opt-btn" onclick="sel(this,'q2')">Yes, right now</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Probably yes</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Maybe</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Probably not</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">No</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">3. Which feature feels most useful?</label>
+        <div class="options-row" id="q3">
+          <button class="opt-btn" onclick="sel(this,'q3')">Energy tagging</button>
+          <button class="opt-btn" onclick="sel(this,'q3')">Auto week generation</button>
+          <button class="opt-btn" onclick="sel(this,'q3')">Pattern learning over time</button>
+          <button class="opt-btn" onclick="sel(this,'q3')">End of week check-in</button>
+          <button class="opt-btn" onclick="sel(this,'q3')">Calendar sync</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">4. How easy does the app look to use?</label>
+        <div class="scale-row" id="q4">
+          <button class="scale-btn" onclick="selScale(this,'q4')">1</button>
+          <button class="scale-btn" onclick="selScale(this,'q4')">2</button>
+          <button class="scale-btn" onclick="selScale(this,'q4')">3</button>
+          <button class="scale-btn" onclick="selScale(this,'q4')">4</button>
+          <button class="scale-btn" onclick="selScale(this,'q4')">5</button>
+        </div>
+        <div class="scale-labels"><span>Hard to use</span><span>Very easy</span></div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">5. Does the design feel approachable and friendly?</label>
+        <div class="options-row" id="q5">
+          <button class="opt-btn" onclick="sel(this,'q5')">Yes, very much</button>
+          <button class="opt-btn" onclick="sel(this,'q5')">Mostly yes</button>
+          <button class="opt-btn" onclick="sel(this,'q5')">Neutral</button>
+          <button class="opt-btn" onclick="sel(this,'q5')">Not particularly</button>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">6. What would make you more likely to use this?</label>
+        <textarea placeholder="Anything — features, design changes, things that feel missing..."></textarea>
+      </div>
+
+      <div class="q-block">
+        <label class="q-label">7. Anything that confused you or felt off?</label>
+        <textarea placeholder="Honest feedback is the most helpful kind..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submit()">Submit feedback</button>
+      <div class="thankyou" id="thankyou">Thank you — your feedback has been recorded. It genuinely helps shape what gets built next. 🙌</div>
+    </div>
+  </div>
+
+</div>
+<script>
+function sel(btn,group){document.querySelectorAll('#'+group+' .opt-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function selScale(btn,group){document.querySelectorAll('#'+group+' .scale-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function submit(){document.getElementById('thankyou').style.display='block';document.querySelector('.submit-btn').style.opacity='.4';document.querySelector('.submit-btn').style.pointerEvents='none';document.getElementById('thankyou').scrollIntoView({behavior:'smooth',block:'center'});}
+</script>
+</body>
+</html>
