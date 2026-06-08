@@ -6,6 +6,7 @@
 
 ## About This Repository
 
+
 This repository hosts the public concept preview for **Nimva**, an independently designed mobile application built to solve a problem I experience firsthand as a student managing a demanding academic schedule alongside leadership roles, extracurricular commitments, and personal health.
 
 The concept page serves two purposes:
