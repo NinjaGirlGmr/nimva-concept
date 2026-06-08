@@ -368,20 +368,10 @@ textarea::placeholder{color:var(--text-dim);}
         </div>
       </div>
 
-      <div class="q-block">
-        <label class="q-label">2. Is this something you'd actually use?</label>
-        <div class="options-row" id="q2">
-          <button class="opt-btn" onclick="sel(this,'q2')">Yes, right now</button>
-          <button class="opt-btn" onclick="sel(this,'q2')">Probably yes</button>
-          <button class="opt-btn" onclick="sel(this,'q2')">Maybe</button>
-          <button class="opt-btn" onclick="sel(this,'q2')">Probably not</button>
-          <button class="opt-btn" onclick="sel(this,'q2')">No</button>
-        </div>
-      </div>
 
       <div class="q-block">
-        <label class="q-label">3. Which feature feels most useful?</label>
-        <div class="options-row" id="q3">
+        <label class="q-label">2. Which feature feels most useful?</label>
+        <div class="options-row" id="q2">
           <button class="opt-btn" onclick="sel(this,'q3')">Energy tagging</button>
           <button class="opt-btn" onclick="sel(this,'q3')">Auto week generation</button>
           <button class="opt-btn" onclick="sel(this,'q3')">Pattern learning over time</button>
@@ -391,8 +381,8 @@ textarea::placeholder{color:var(--text-dim);}
       </div>
 
       <div class="q-block">
-        <label class="q-label">4. How easy does the app look to use?</label>
-        <div class="scale-row" id="q4">
+        <label class="q-label">3. How easy does the app look to use?</label>
+        <div class="scale-row" id="q3">
           <button class="scale-btn" onclick="selScale(this,'q4')">1</button>
           <button class="scale-btn" onclick="selScale(this,'q4')">2</button>
           <button class="scale-btn" onclick="selScale(this,'q4')">3</button>
@@ -403,8 +393,8 @@ textarea::placeholder{color:var(--text-dim);}
       </div>
 
       <div class="q-block">
-        <label class="q-label">5. Does the design feel approachable and friendly?</label>
-        <div class="options-row" id="q5">
+        <label class="q-label">4. Does the design feel approachable and friendly?</label>
+        <div class="options-row" id="q4">
           <button class="opt-btn" onclick="sel(this,'q5')">Yes, very much</button>
           <button class="opt-btn" onclick="sel(this,'q5')">Mostly yes</button>
           <button class="opt-btn" onclick="sel(this,'q5')">Neutral</button>
@@ -413,13 +403,24 @@ textarea::placeholder{color:var(--text-dim);}
       </div>
 
       <div class="q-block">
-        <label class="q-label">6. What would make you more likely to use this?</label>
+        <label class="q-label">5. What would make you more likely to use this?</label>
         <textarea placeholder="Anything — features, design changes, things that feel missing..."></textarea>
       </div>
 
       <div class="q-block">
-        <label class="q-label">7. Anything that confused you or felt off?</label>
+        <label class="q-label">6. Anything that confused you or felt off?</label>
         <textarea placeholder="Honest feedback is the most helpful kind..."></textarea>
+      </div>
+      
+      <div class="q-block">
+        <label class="q-label">7. Is this something you'd actually use?</label>
+        <div class="options-row" id="q7">
+          <button class="opt-btn" onclick="sel(this,'q2')">Yes, right now</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Probably yes</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Maybe</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">Probably not</button>
+          <button class="opt-btn" onclick="sel(this,'q2')">No</button>
+        </div>
       </div>
 
       <button class="submit-btn" onclick="submit()">Submit feedback</button>
@@ -437,9 +438,10 @@ async function submit(){
     q2: document.querySelector('#q2 .sel')?.textContent || 'No answer',
     q3: document.querySelector('#q3 .sel')?.textContent || 'No answer',
     q4: document.querySelector('#q4 .sel')?.textContent || 'No answer',
-    q5: document.querySelector('#q5 .sel')?.textContent || 'No answer',
-    q6: document.querySelectorAll('textarea')[0]?.value || 'No answer',
-    q7: document.querySelectorAll('textarea')[1]?.value || 'No answer',
+    q5: document.querySelectorAll('textarea')[0]?.value || 'No answer',
+    q6: document.querySelectorAll('textarea')[1]?.value || 'No answer',
+    q7: document.querySelector('#q7 .sel')?.textContent || 'No answer',
+   
   };
 
   await fetch('https://formspree.io/f/mjgdwboo', {
